@@ -1,23 +1,16 @@
-FROM node:0.12
+FROM ubuntu:14.04
 MAINTAINER Milo van der Linden <milo@dogodigi.net>
 
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends apt-utils \
-      git \
-      build-essential \
-      checkinstall \
-      pkg-config \
-      libcairo2-dev \
-      libjpeg62-turbo-dev \
-      libpango1.0-dev \
-      libgif-dev \
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive \
+    apt-get install -y --no-install-recommends apt-utils make g++ git-core \
+      libgif-dev libjpeg-dev libcairo2-dev \
+      libhiredis-dev \
       libmapnik-dev \
       python-mapnik \
       mapnik-utils \
-      ca-certificates && \
+      nodejs nodejs-legacy npm && \
     rm -rf /var/lib/apt/lists/*
 
-RUN mkdir -p /tmp/windshaft-dev/millstone
 RUN git clone git://github.com/CartoDB/Windshaft-cartodb.git /windshaft-cartodb
 RUN mkdir -p /windshaft-cartodb/logs
 

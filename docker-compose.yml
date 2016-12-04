@@ -1,0 +1,7 @@
+db:
+  build: cartodb-postgis
+  expose: 5432
+maps-api:
+  build: cartodb-windshaft
+sql-api:
+  build: cartodb-sql-api
