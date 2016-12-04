@@ -4,7 +4,7 @@ MAINTAINER Milo van der Linden <milo@dogodigi.net>
 ENV PGROUTING_MAJOR 2.3
 
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
+    apt-get install -y --no-install-recommends apt-utils\
       git \
       build-essential \
       ca-certificates \
