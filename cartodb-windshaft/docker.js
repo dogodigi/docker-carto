@@ -1,17 +1,17 @@
-module.exports.name = 'production';
+module.exports.name = '__CARTO_ENV__';
 module.exports.postgres = {
-    user: 'postgres',
-    host: '127.0.0.1',
-    port: 5432,
+    user: '__DB_USER__',
+    host: '__DB_HOST__',
+    port: __DB_PORT__,
     geometry_field: 'the_geom',
     srid: 4326
 };
 module.exports.millstone = {
-    cache_basedir: '/tmp/windshaft-dev/millstone'
+    cache_basedir: '/tmp/windshaft/millstone'
 };
 module.exports.redis = {
-    host: '127.0.0.1',
-    port: 6379,
+    host: '__REDIS_HOST__',
+    port: __REDIS_PORT__,
     idleTimeoutMillis: 1,
     reapIntervalMillis: 1
 };
@@ -55,8 +55,8 @@ module.exports.renderer = {
     }
 };
 module.exports.mapnik_version = undefined; // will be looked up at runtime if undefined
-module.exports.windshaft_port = 8080;
-module.exports.enable_cors = true;
+module.exports.windshaft_port = __WINDSHAFT_PORT__;
+module.exports.enable_cors = __CORS_ENABLED__;
 module.exports.enabledFeatures = {
     // whether in mapconfig is available stats & metadata for each layer
     layerMetadata: false
