@@ -4,6 +4,8 @@ db:
     - 5432
 maps-api:
   build: cartodb-windshaft
+  expose:
+    - 8181
 sql-api:
   build: cartodb-sql-api
 web:

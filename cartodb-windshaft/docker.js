@@ -2,7 +2,7 @@ module.exports.name = '__CARTO_ENV__';
 module.exports.postgres = {
     user: '__DB_USER__',
     host: '__DB_HOST__',
-    port: __DB_PORT__,
+    port: 5432,
     geometry_field: 'the_geom',
     srid: 4326
 };
