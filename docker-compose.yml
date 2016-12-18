@@ -4,11 +4,20 @@ db:
     - 5432
 maps-api:
   build: cartodb-windshaft
+  links:
+    - db:db
+    - redis:redis
   expose:
     - 8181
 sql-api:
   build: cartodb-sql-api
+  links:
+    - db:db
+    - redis:redis
 web:
   build: cartodb-web
+
 redis:
   image: redis
+  expose:
+     - 6379
