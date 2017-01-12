@@ -18,13 +18,14 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive \
       libgif-dev libjpeg-dev libcairo2-dev \
       libhiredis-dev \
       libmapnik-dev \
+      ca-certificates \
       python-mapnik \
       mapnik-utils \
       libprotobuf-dev \
       nodejs nodejs-legacy npm && \
     rm -rf /var/lib/apt/lists/*
 
-RUN git clone git://github.com/CartoDB/Windshaft-cartodb.git /windshaft-cartodb
+RUN git clone https://github.com/cartodb/windshaft-cartodb.git /windshaft-cartodb
 RUN mkdir -p /windshaft-cartodb/logs
 RUN mkdir -p /windshaft-cartodb/config/environments
 RUN mkdir -p /tmp/windshaft/millstone

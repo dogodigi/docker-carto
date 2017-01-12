@@ -1,23 +1,33 @@
-db:
-  build: cartodb-postgis
-  expose:
-    - 5432
-maps-api:
-  build: cartodb-windshaft
-  links:
-    - db:db
-    - redis:redis
-  expose:
-    - 8181
-sql-api:
-  build: cartodb-sql-api
-  links:
-    - db:db
-    - redis:redis
-web:
-  build: cartodb-web
-
-redis:
-  image: redis
-  expose:
-     - 6379
+version: '2'
+services:
+  db:
+    build: cartodb-postgis
+    image: carto-db
+    expose:
+      - 5432
+  maps-api:
+    build: cartodb-windshaft
+    image: carto-maps-api
+    links:
+      - db:db
+      - redis:redis
+    expose:
+      - 8181
+  sql-api:
+    build: cartodb-sql-api
+    image: carto-sql-api
+    links:
+      - db:db
+      - redis:redis
+  web:
+    build: cartodb-web
+    image: carto-web
+    links:
+      - sql-api:sql-api
+      - maps-api:maps-api
+      - db:db
+      - redis:redis
+  redis:
+    image: redis
+    expose:
+      - 6379
