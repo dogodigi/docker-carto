@@ -19,6 +19,8 @@ services:
     links:
       - db:db
       - redis:redis
+    expose:
+      - 8080
   web:
     build: cartodb-web
     image: carto-web
