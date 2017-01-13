@@ -3,6 +3,7 @@ services:
   db:
     build: cartodb-postgis
     image: carto-db
+    restart: always
     expose:
       - 5432
   maps-api:
