@@ -38,3 +38,9 @@ services:
     image: redis
     expose:
       - 6379
+  #varnish:
+  #  image: varnish
+  #  ports:
+  #    - 80:3001
+  #  links:
+  #    - web:node1
