@@ -9,15 +9,15 @@ defaults: &defaults
     csv_guessing:     true
   debug_assets: true
   mandatory_keys:     [layer_opts, sql_api, varnish_management, redis, session_domain]
-  session_domain:     '.localhost.lan'
+  session_domain:     '.__CARTO_SESSION_DOMAIN__'
   # If activated, urls will use usernames in format //SESSION_DOMAIN/user/USERNAME and ignore subdomains if present
   subdomainless_urls: false
-  http_port:           3000 # nil|integer. HTTP port to use when building urls. Leave empty to use default (80)
+  http_port:           __CARTO_SESSION_PORT__ # nil|integer. HTTP port to use when building urls. Leave empty to use default (80)
   https_port:          # nil|integer. HTTPS port to use when building urls. Leave empty to use default (443)
   secret_token:       '71c2b25921b84a1cb21c71503ab8fb23'
-  account_host:       'localhost.lan:3000'
+  account_host:       '__CARTO_SESSION_DOMAIN__:__CARTO_SESSION_PORT__'
   account_path:       '/account'
-  vizjson_cache_domains: ['.localhost.lan']
+  vizjson_cache_domains: ['.__CARTO_SESSION_DOMAIN__']
   data_library:
     username:         'common-data'
     path:             '/data-library'
@@ -28,33 +28,33 @@ defaults: &defaults
     filter: 'mapnik'
     internal:
       protocol:      'http'
-      domain:        'localhost.lan'
-      port:          '8181'
-      host:          '127.0.0.1'
+      domain:        '__MAP_API_HOST__'
+      port:          '__MAP_API_PORT__'
+      host:          '__MAP_API_HOST__'
       verifycert:     false
     private:
       protocol:      'http'
-      domain:        'localhost.lan'
-      port:          '8181'
+      domain:        '__MAP_API_HOST__'
+      port:          '__MAP_API_PORT__'
       verifycert:     false
     public:
       protocol:      'http'
-      domain:        'localhost.lan'
-      port:          '8181'
+      domain:        '__MAP_API_HOST__'
+      port:          '__MAP_API_PORT__'
       verifycert:     false
   sql_api:
     private:
       protocol:   'http'
-      domain:     'localhost.lan'
+      domain:     '__SQL_API_HOST__'
       endpoint:   '/api/v1/sql'
-      port:       8080
+      port:       __SQL_API_PORT__
     public:
       protocol:   'http'
-      domain:     'localhost.lan'
+      domain:     '__SQL_API_HOST__'
       endpoint:   '/api/v2/sql'
-      port:       8080
+      port:       __SQL_API_PORT__
   api_requests_service_url: ''
-  developers_host:    'http://developers.localhost.lan:3000'
+  developers_host:    'http://developers.__CARTO_SESSION_DOMAIN__:__CARTO_SESSION_PORT__'
   google_analytics:
     primary:          ''
     embeds:           ''
@@ -152,8 +152,8 @@ defaults: &defaults
     timeout: 5 # socket timeout
     trigger_verbose: true
   redis:
-    host: '127.0.0.1'
-    port: 6379
+    host: '__REDIS_HOST__'
+    port: __REDIS_PORT__
     connect_timeout: 2
     read_timeout: 3
     write_timeout: 5
@@ -163,8 +163,8 @@ defaults: &defaults
       users_metadata:      5
       redis_migrator_logs: 6
   org_metadata_api:
-    host: 'localhost.lan'
-    port: '3000'
+    host: '__CARTO_SESSION_DOMAIN__'
+    port: '__CARTO_SESSION_PORT__'
     username: "extension"
     password: "elephant"
     timeout: 10
@@ -253,10 +253,10 @@ defaults: &defaults
         interactivity:      "cartodb_id"
         debug:              false
         visible:            true
-        tiler_domain:       "localhost.lan"
+        tiler_domain:       "__CARTO_SESSION_DOMAIN__"
         tiler_port:         "80"
         tiler_protocol:     "http"
-        sql_domain:         "localhost.lan"
+        sql_domain:         "__CARTO_SESSION_DOMAIN__"
         sql_port:           "80"
         sql_protocol:       "http"
         extra_params:       { cache_policy: 'persist' }
@@ -532,7 +532,7 @@ defaults: &defaults
 
 development:
   <<: *defaults
-  http_port: 3000
+  http_port: __CARTO_SESSION_PORT__
   varnish_management:
     critical: false
     host: '127.0.0.1'
@@ -547,11 +547,11 @@ test:
   <<: *defaults
   http_port: 53716
   redis:
-    host: 'redis'
-    port: 6379
+    host: '__REDIS_HOST__'
+    port: __REDIS_PORT_
   enforce_non_empty_layer_css: false
   api_requests_es_service:
-    url: "http://api-calls-service.localhost.lan/search"
+    url: "http://api-calls-service.__CARTO_SESSION_DOMAIN__/search"
     body: ""
 
 staging:

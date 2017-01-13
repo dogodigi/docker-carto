@@ -1,5 +1,5 @@
 #!/bin/bash
-cd /windshaft-cartodbdocker
+cd /windshaft-cartodb
 
 mv config/_config config/environments/$CARTO_ENV.js.example
 

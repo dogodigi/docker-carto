@@ -1,7 +1,7 @@
 FROM ubuntu:14.04
 MAINTAINER Milo van der Linden <milo@dogodigi.net>
 
-ENV CARTO_ENV production
+ENV CARTO_ENV development
 ENV DB_HOST db
 ENV DB_PORT 5432
 ENV DB_USER postgres

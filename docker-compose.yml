@@ -30,6 +30,10 @@ services:
       - maps-api:maps-api
       - db:db
       - redis:redis
+    expose:
+      - 3000
+    ports:
+      - 3000:3000
   redis:
     image: redis
     expose:

@@ -2,8 +2,9 @@ FROM mdillon/postgis:9.6
 MAINTAINER Milo van der Linden <milo@dogodigi.net>
 
 ENV PGROUTING_MAJOR 2.3
-ENV PGUSER postgres
-ENV DB_TEMPLATE template_postgis
+ENV POSTRES_USER postgres
+ENV CARTO_DB_NAME carto_db
+ENV CARTO_ENV development
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends apt-utils\
@@ -17,8 +18,12 @@ RUN apt-get update && \
 
 RUN mkdir -p /cartodb-postgresql
 RUN git clone https://github.com/CartoDB/cartodb-postgresql.git /cartodb-postgresql
-WORKDIR /cartodb-postgresql
-RUN make all install
+RUN cd /cartodb-postgresql && make all install
+
+# somehow, we need to run this again. postgresql parent container does this, but it seems to get overwritten
+RUN mv -v /usr/share/postgresql/$PG_MAJOR/postgresql.conf.sample /usr/share/postgresql/ \
+	&& ln -sv ../postgresql.conf.sample /usr/share/postgresql/$PG_MAJOR/ \
+&& sed -ri "s!^#?(listen_addresses)\s*=\s*\S+.*!\1 = '*'!" /usr/share/postgresql/postgresql.conf.sample
 
 RUN mkdir -p /docker-entrypoint-initdb.d
-COPY ./run.sh /docker-entrypoint-initdb.d/cartodb.sh
+COPY ./initdb-carto.sh /docker-entrypoint-initdb.d/carto.sh
