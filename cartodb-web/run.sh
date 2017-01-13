@@ -20,4 +20,16 @@ node -v && npm -v
 bundle exec grunt --environment $CARTO_ENV
 bundle exec rake db:create
 bundle exec rake db:migrate
-bundle exec rails server && bundle exec ./script/resque
+cat >&2 <<-'EOWARN'
+    ****************************************************
+      WARNING:
+       You should run bundle exec ./script/resque
+       in a seperate process.
+
+      rescue will polling redis keys in order to find
+      pending background jobs like datasets imports
+      or synchronized tables.
+
+    ****************************************************
+EOWARN
+bundle exec rails server
