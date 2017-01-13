@@ -2,6 +2,8 @@ FROM mdillon/postgis:9.6
 MAINTAINER Milo van der Linden <milo@dogodigi.net>
 
 ENV PGROUTING_MAJOR 2.3
+ENV PGUSER postgres
+ENV DB_TEMPLATE template_postgis
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends apt-utils\
