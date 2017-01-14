@@ -25,11 +25,15 @@ services:
   web:
     build: cartodb-web
     image: carto-web
+    environment:
+      - BUNDLE_CACHE=/box
     links:
       - sql-api:sql-api
       - maps-api:maps-api
       - db:db
       - redis:redis
+    volumes_from:
+      - box
     expose:
       - 3000
     ports:
@@ -38,6 +42,10 @@ services:
     image: redis
     expose:
       - 6379
+  box:
+    image: busybox
+    volumes:
+      - /box
   #varnish:
   #  image: varnish
   #  ports:

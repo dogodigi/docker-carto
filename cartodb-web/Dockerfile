@@ -30,6 +30,8 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive \
       localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
 
 ENV LANG en_US.utf8
+VOLUME /bundle_cache
+ENV BUNDLE_PATH /bundle_cache
 
 RUN git clone --recursive https://github.com/cartodb/cartodb.git /carto
 WORKDIR /carto
@@ -38,13 +40,15 @@ COPY grunt_docker.json /carto/config/grunt_docker.json
 COPY database.yml /carto/config/database.yml
 COPY Gruntfile.js /carto/Gruntfile.js
 RUN ln -s /usr/bin/nodejs /usr/bin/node
-RUN bundle install
 RUN npm cache clean && npm install -g n && n 0.10 && npm update -g npm@^2
 RUN npm install .
 RUN CPLUS_INCLUDE_PATH=/usr/include/gdal C_INCLUDE_PATH=/usr/include/gdal pip install --no-use-wheel -r python_requirements.txt
 
 # Add image configuration and scripts
+
+RUN mkdir -p /carto/public/assets
+VOLUME /carto/public/assets
 ADD run.sh /run.sh
 RUN chmod 755 /*.sh
-
+ENV PATH=$PATH:/carto/node_modules/grunt-cli/bin
 CMD ["/run.sh"]

@@ -33,7 +33,7 @@ WORKDIR /windshaft-cartodb
 RUN npm install
 
 # Add config
-COPY docker.js /windshaft-cartodb/config/environments/_config
+COPY docker.js /windshaft-cartodb/config/environments/docker.js
 # Add image configuration and scripts
 ADD run.sh /run.sh
 RUN chmod 755 /*.sh

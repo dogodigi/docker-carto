@@ -1,7 +1,7 @@
 #!/bin/bash
 cd /windshaft-cartodb
 
-mv config/_config config/environments/$CARTO_ENV.js.example
+cp config/docker.js config/environments/$CARTO_ENV.js.example
 
 sed -i "s/__CARTO_ENV__/$CARTO_ENV/g" config/environments/$CARTO_ENV.js.example
 sed -i "s/__DB_PORT__/$DB_PORT/g" config/environments/$CARTO_ENV.js.example
