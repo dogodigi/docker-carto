@@ -8,7 +8,7 @@ ENV DB_USER postgres
 
 ENV REDIS_HOST redis
 ENV REDIS_PORT 6379
-
+ENV CARTO_SESSION_DOMAIN localdomain
 ENV CORS_ENABLED true
 
 ENV WINDSHAFT_PORT 8181
@@ -25,7 +25,7 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive \
       nodejs nodejs-legacy npm && \
     rm -rf /var/lib/apt/lists/*
 
-RUN git clone https://github.com/cartodb/windshaft-cartodb.git /windshaft-cartodb
+RUN git clone --depth 1 --branch master https://github.com/cartodb/windshaft-cartodb.git /windshaft-cartodb
 RUN mkdir -p /windshaft-cartodb/logs
 RUN mkdir -p /windshaft-cartodb/config/environments
 RUN mkdir -p /tmp/windshaft/millstone

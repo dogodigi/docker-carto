@@ -6,14 +6,11 @@ module.exports.base_url     = '(?:/api/:version|/user/:user/api/:version)';
 // steps taken for producing the response.
 module.exports.useProfiler = true;
 module.exports.log_format   = '[:date] :remote-addr :method :req[Host]:url :status :response-time ms -> :res[Content-Type] (:res[X-SQLAPI-Profiler])';
-// If log_filename is given logs will be written there, in append mode. Otherwise stdout is used (default).
-// Log file will be re-opened on receiving the HUP signal
-module.exports.log_filename = 'logs/cartodb-sql-api.log';
 // Regular expression pattern to extract username
 // from hostname. Must have a single grabbing block.
 module.exports.user_from_host = '^(.*)\\.cartodb\\.com$';
 module.exports.node_port    = 8080;
-module.exports.node_host    = '127.0.0.1';
+module.exports.node_host    = '0.0.0.0';
 // idle socket timeout, in miliseconds
 module.exports.node_socket_timeout    = 600000;
 module.exports.environment  = '__CARTO_ENV__';

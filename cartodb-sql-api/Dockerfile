@@ -15,7 +15,7 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive \
       nodejs nodejs-legacy npm && \
     rm -rf /var/lib/apt/lists/*
 
-RUN git clone https://github.com/cartodb/cartodb-sql-api.git /cartodb-sql-api
+RUN git clone --depth 1 --branch master https://github.com/cartodb/cartodb-sql-api.git /cartodb-sql-api
 RUN mkdir -p /cartodb-sql-api/logs
 RUN mkdir -p /cartodb-sql-api/config/environments
 RUN mkdir -p /tmp

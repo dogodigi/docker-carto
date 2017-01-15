@@ -17,7 +17,7 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p /cartodb-postgresql
-RUN git clone https://github.com/CartoDB/cartodb-postgresql.git /cartodb-postgresql
+RUN git clone --depth 1 --branch master https://github.com/CartoDB/cartodb-postgresql.git /cartodb-postgresql
 RUN cd /cartodb-postgresql && make all install
 
 # somehow, we need to run this again. postgresql parent container does this, but it seems to get overwritten
